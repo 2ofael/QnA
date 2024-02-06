@@ -1,0 +1,42 @@
+﻿@model GlobalEntity.ViewModels.StudentRegistrationViewModel
+
+@{
+    ViewData["Title"] = "Student Registration";
+}
+
+<div class="container">
+    <h2 class="text-center mb-4">Student Registration</h2>
+    <form asp-action="RegisterStudent" method="post" class="needs-validation" novalidate>
+        <div class="form-floating mb-3">
+            <input asp-for="Email" class="form-control" id="email" placeholder="Email" required>
+            <label for="email">Email address</label>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="Password" type="password" class="form-control" id="password" placeholder="Password" required>
+            <label for="password">Password</label>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="ConfirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+            <label for="confirmPassword">Confirm Password</label>
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="InstituteName" class="form-control" id="instituteName" placeholder="Institute Name" required>
+            <label for="instituteName">Institute Name</label>
+            <span asp-validation-for="InstituteName" class="text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="IdCardNumber" class="form-control" id="idCardNumber" placeholder="ID Card Number" required>
+            <label for="idCardNumber">ID Card Number</label>
+            <span asp-validation-for="IdCardNumber" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary">Register</button>
+    </form>
+</div>

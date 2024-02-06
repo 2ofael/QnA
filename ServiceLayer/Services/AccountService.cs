@@ -25,6 +25,10 @@ namespace ServiceLayer.Services
         {
             var user = new Teacher { UserName = model.Email, Email = model.Email };
             var result = await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "Teacher");
+            }
             return result;
         }
 
@@ -33,6 +37,10 @@ namespace ServiceLayer.Services
         {
             var user = new Student { UserName = model.Email, Email = model.Email, IdCardNumber = model.IdCardNumber, InstituteName = model.InstituteName };
             var result = await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "Student");
+            }
             return result;
         }
 

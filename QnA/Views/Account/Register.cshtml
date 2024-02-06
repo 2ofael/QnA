@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Register as a Teacher</h5>
+                        <p class="card-text">If you are a teacher, click the link below to register:</p>
+                        <a asp-controller="Account" asp-action="RegisterTeacher" class="btn btn-primary">Register as Teacher</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Register as a Student</h5>
+                        <p class="card-text">If you are a student, click the link below to register:</p>
+                        <a asp-controller="Account" asp-action="RegisterStudent" class="btn btn-primary">Register as Student</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

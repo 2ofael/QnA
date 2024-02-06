@@ -12,6 +12,11 @@ namespace QnA.Controllers
         {
             _accountService = accountService;
         }
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
 
         [HttpGet]
         public IActionResult RegisterTeacher()
