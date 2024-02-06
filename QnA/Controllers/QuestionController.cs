@@ -5,6 +5,6 @@ namespace QnA.Controllers
     public class QuestionController : Controller
     {
 
-      
+     
     }
 }
