@@ -1,17 +1,14 @@
-﻿using Microsoft.VisualBasic;
+﻿using GlobalEntity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GlobalEntity.Models
+namespace GlobalEntity.ViewModels
 {
-    public class Question
+    public class AnswerViewModel
     {
-
-  
-
         public string Id { get; set; }
 
         public string Title { get; set; }
@@ -20,14 +17,13 @@ namespace GlobalEntity.Models
 
         public DateTime PostedDate { get; set; }
 
-        public string StudentId {  get; set; }
+        public string TeacherId { get; set; }
 
-        public Student Student { get; set; }
+        public Teacher Teacher { get; set; }
 
-        public List<Answer> Answers { get; set; } = new List<Answer>();
+        public string QuestionId { get; set; }
 
-
-
+        public Question Question { get; set; }
 
     }
 }

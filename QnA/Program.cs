@@ -1,5 +1,7 @@
 
 using DataAccessLayer.DatabaseContext;
+using DataAccessLayer.Interfaces;
+using DataAccessLayer.Repositories;
 using GlobalEntity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -18,6 +20,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

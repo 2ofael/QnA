@@ -1,0 +1,40 @@
+﻿@model GlobalEntity.ViewModels.QuestionViewModel
+
+@{
+    ViewData["Title"] = "Edit Question";
+}
+
+<div class="container">
+    <h2>Edit Question</h2>
+    <hr />
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group">
+            <label>Title:</label>
+            <input type="text" class="form-control" asp-for="Title" />
+        </div>
+
+        <div class="form-group">
+            <label>Description:</label>
+            <textarea id="contentEditor" class="form-control" asp-for="Description"></textarea>
+        </div>
+
+        <!-- Other properties -->
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/9jinn7ziaif56teh5unwkuxehagxkniiyheelvo474uyuf5j/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#contentEditor',
+            plugins: 'advlist autolink lists link image charmap print preview anchor',
+            toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image',
+            branding: false,
+            height: 400
+        });
+    </script>
+}

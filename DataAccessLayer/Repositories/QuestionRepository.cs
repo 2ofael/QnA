@@ -30,9 +30,11 @@ namespace DataAccessLayer.Repositories
             return await _context.Questions.ToListAsync();
         }
 
-        public async Task<Question> GetQuestionByIdAsync(int id)
+        public async Task<Question> GetQuestionByIdAsync(string id)
         {
-            return await _context.Questions.FindAsync(id);
+            return await _context.Questions
+                .Include(q => q.Answers).Include(q=>q.Student) 
+                .FirstOrDefaultAsync(q => q.Id == id);
         }
 
         public async Task UpdateQuestionAsync(Question question)
@@ -41,7 +43,7 @@ namespace DataAccessLayer.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteQuestionAsync(int id)
+        public async Task DeleteQuestionAsync(string id)
         {
             var question = await _context.Questions.FindAsync(id);
             if (question != null)
