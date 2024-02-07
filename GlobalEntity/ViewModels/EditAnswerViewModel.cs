@@ -1,6 +1,7 @@
 ﻿using GlobalEntity.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,20 +10,16 @@ namespace GlobalEntity.ViewModels
 {
     public class EditAnswerViewModel
     {
+        [Required]
         public string Id { get; set; }
-
+        [Required]
         public string Title { get; set; }
-
+        [Required]
         public string Description { get; set; }
 
-        public DateTime PostedDate { get; set; }
 
-        public string TeacherId { get; set; }
 
-        public Teacher Teacher { get; set; }
-
-        public string QuestionId { get; set; }
-
-        public Question Question { get; set; }
     }
+
+       
 }

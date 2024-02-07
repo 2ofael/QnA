@@ -7,8 +7,8 @@ namespace ServiceLayer.Interfaces
     {
         Task AddAnswerAsync(CreateAnswerViewModel createAnswerViewModel);
         Task DeleteAnswerAsync(string id);
-        Task<List<Answer>> GetAllAnswersAsync();
-        Task<Answer> GetAnswerByIdAsync(string id);
-        Task UpdateAnswerAsync(Answer answer);
+        Task<List<AnswerViewModel>> GetAllAnswersAsync();
+        Task<AnswerViewModel> GetAnswerByIdAsync(string id);
+        Task<EditAnswerViewModel> UpdateAnswerAsync(EditAnswerViewModel editAnswerViewModel);
     }
 }

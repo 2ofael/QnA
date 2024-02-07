@@ -48,19 +48,61 @@ namespace ServiceLayer.Services
             await _answerRepository.AddAnswerAsync(answer);
         }
 
-        public async Task<List<Answer>> GetAllAnswersAsync()
-        {
-            return await _answerRepository.GetAllAnswersAsync();
+        public async Task<List<AnswerViewModel>> GetAllAnswersAsync()
+        {   List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
+            var answers =  await _answerRepository.GetAllAnswersAsync();
+
+            foreach(var answer in answers)
+            {
+                answerViewModels.Add(new AnswerViewModel
+                {
+                    Id = answer.Id,
+                    Title = answer.Title,
+                    Description = answer.Description,
+                    PostedDate = answer.PostedDate,
+                    QuestionId = answer.QuestionId,
+
+
+                });
+            }
+           
+
+            return answerViewModels;
         }
 
-        public async Task<Answer> GetAnswerByIdAsync(string id)
+        public async Task<AnswerViewModel> GetAnswerByIdAsync(string id)
         {
-            return await _answerRepository.GetAnswerByIdAsync(id);
+            Answer answer = await _answerRepository.GetAnswerByIdAsync(id); 
+
+            AnswerViewModel answerViewModel =  new AnswerViewModel
+            {
+                Title = answer.Title,
+                Description = answer.Description,
+                Id = id,
+                QuestionId = answer.QuestionId,
+                TeacherId = answer.TeacherId,
+                Teacher = answer.Teacher,
+                PostedDate = answer.PostedDate,
+            };
+
+
+            return answerViewModel;
+
         }
 
-        public async Task UpdateAnswerAsync(Answer answer)
+        public async Task<EditAnswerViewModel> UpdateAnswerAsync(EditAnswerViewModel editAnswerViewModel)
         {
-            await _answerRepository.UpdateAnswerAsync(answer);
+            Answer editedAnswer = await _answerRepository.GetAnswerByIdAsync(editAnswerViewModel.Id);
+          
+            editedAnswer.Title = editAnswerViewModel.Title;
+            editedAnswer.Description = editAnswerViewModel.Description;
+    
+        
+
+            await _answerRepository.UpdateAnswerAsync(editedAnswer);
+
+            return editAnswerViewModel;
+
         }
 
         public async Task DeleteAnswerAsync(string id)

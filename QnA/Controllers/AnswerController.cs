@@ -22,8 +22,8 @@ namespace QnA.Controllers
 
         public async Task<IActionResult> AnswerList()
         {
-            List<Answer> answers = await _answerService.GetAllAnswersAsync();
-            return View(answers);
+            List<AnswerViewModel> answersViewModel = await _answerService.GetAllAnswersAsync();
+            return View(answersViewModel);
         }
 
   
@@ -34,13 +34,13 @@ namespace QnA.Controllers
                 return NotFound();
             }
 
-            Answer answer = await _answerService.GetAnswerByIdAsync(id);
-            if (answer == null)
+            AnswerViewModel answerViewModel = await _answerService.GetAnswerByIdAsync(id);
+            if (answerViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(answer);
+            return View(answerViewModel);
         }
 
     
@@ -71,7 +71,7 @@ namespace QnA.Controllers
                 return NotFound();
             }
 
-            Answer answer = await _answerService.GetAnswerByIdAsync(id);
+            AnswerViewModel answer = await _answerService.GetAnswerByIdAsync(id);
             if (answer == null)
             {
                 return NotFound();
@@ -82,22 +82,19 @@ namespace QnA.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Text")] Answer answer)
+        public async Task<IActionResult> Edit( EditAnswerViewModel editAnswerViewModel)
         {
-            if (id != answer.Id)
-            {
-                return NotFound();
-            }
+           
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await _answerService.UpdateAnswerAsync(answer);
+                    await _answerService.UpdateAnswerAsync(editAnswerViewModel);
                 }
                 catch (Exception)
                 {
-                    if (!AnswerExists(answer.Id))
+                    if (!AnswerExists(editAnswerViewModel.Id))
                     {
                         return NotFound();
                     }
@@ -108,10 +105,28 @@ namespace QnA.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(answer);
+            return View();
         }
 
 
+        //public async Task<IActionResult> Delete(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    Answer answer = await _answerService.GetAnswerByIdAsync(id);
+        //    if (answer == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(answer);
+        //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -119,22 +134,25 @@ namespace QnA.Controllers
                 return NotFound();
             }
 
-            Answer answer = await _answerService.GetAnswerByIdAsync(id);
+            AnswerViewModel answer = await _answerService.GetAnswerByIdAsync(id);
             if (answer == null)
             {
                 return NotFound();
             }
 
-            return View(answer);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
             await _answerService.DeleteAnswerAsync(id);
             return RedirectToAction(nameof(Index));
         }
+
+
+
+        //    [HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(string id)
+        //{
+        //    await _answerService.DeleteAnswerAsync(id);
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool AnswerExists(string id)
         {

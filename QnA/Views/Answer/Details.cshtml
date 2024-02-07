@@ -1,6 +1,6 @@
 ﻿@using System.Security.Claims
 @using GlobalEntity.Models
-@model GlobalEntity.ViewModels.QuestionViewModel
+@model GlobalEntity.ViewModels.AnswerViewModel
 
 <div class="container">
     <div class="row">
@@ -9,8 +9,8 @@
                 <div class="card-body">
                     <h5 class="card-title">@Html.Raw(Model.Title)</h5>
                     <p class="card-text">@Html.Raw(Model.Description)</p>
-                    <p class="card-text"><small class="text-muted">Posted by: @Model.Student.UserName</small></p>
-                    <p class="card-text"><small class="text-muted">Id Card: @Model.Student.IdCardNumber</small></p>
+                    <p class="card-text"><small class="text-muted">Teacher Name: @Model.Teacher.UserName</small></p>
+                    <p class="card-text"><small class="text-muted">Email: @Model.Teacher.Email</small></p>
                     <p class="card-text"><small class="text-muted">Posted on: @Model.PostedDate.ToShortDateString()</small></p>
                 </div>
             </div>
@@ -21,10 +21,10 @@
                     <h5>Actions</h5>
                     <div>
                         <a asp-controller="Answer" asp-action="Create" asp-route-questionId="@Model.Id" class="btn btn-primary">Reply</a>
-                        @if (User.Identity.IsAuthenticated && (User.IsInRole("Moderator") || (Model.StudentId == User.FindFirst(ClaimTypes.NameIdentifier).Value)))
+                        @if (User.Identity.IsAuthenticated && (User.IsInRole("Moderator") || (Model.TeacherId == User.FindFirst(ClaimTypes.NameIdentifier).Value)))
                         {
-                            <a asp-action="Edit" asp-controller="Question" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
-                            <form asp-action="Delete" asp-controller="Question" method="post">
+                            <a asp-action="Edit" asp-controller="Answer" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
+                            <form asp-action="Delete" asp-controller="Answer" method="post">
                                 <input type="hidden" name="id" value="@Model.Id" />
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
@@ -36,20 +36,7 @@
             </div>
         </div>
     </div>
-    <h1>Teachers Answers</h1>
-    @foreach (var answer in Model.Answers){
-        <div class="col-md-4 m-2">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">@Html.Raw((@Truncate(answer.Title, 10)))</h5>
-                    <p class="card-text">@Html.Raw(Truncate(answer.Description, 10))</p>
-                    <p class="card-text"><small class="text-muted">Posted on: @answer.PostedDate.ToShortDateString()</small></p>
-                    <a asp-controller="Answer" asp-action="Details" asp-route-Id="@answer.Id" class="btn btn-primary read-more">Read More</a>
-                </div>
-            </div>
-        </div>
-    }
-
+   
 </div>
 @functions {
     string Truncate(string input, int length)
