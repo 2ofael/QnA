@@ -20,7 +20,7 @@
                 <div class="card-body">
                     <h5>Actions</h5>
                     <div>
-                        <a href="@Url.Action("Reply", "Question", new { id = Model.Id })" class="btn btn-primary">Reply</a>
+                        <a asp-controller="Answer" asp-action="Create" asp-route-questionId="@Model.Id" class="btn btn-primary">Reply</a>
                         @if (User.Identity.IsAuthenticated && (User.IsInRole("Moderator") || (Model.StudentId == User.FindFirst(ClaimTypes.NameIdentifier).Value)))
                         {
                             <a asp-action="Edit" asp-controller="Question" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>

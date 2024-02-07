@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.DatabaseContext;
+using DataAccessLayer.Interfaces;
 using GlobalEntity.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class TeacherRepository
+    public class TeacherRepository : ITeacherRepository
     {
         private readonly AppDbContext _context;
 

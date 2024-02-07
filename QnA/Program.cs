@@ -23,6 +23,10 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IAnswerRepository,AnswerRepository>();
+builder.Services.AddScoped<IAnswerService, AnswerService>();
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

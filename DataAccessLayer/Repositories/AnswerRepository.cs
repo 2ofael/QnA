@@ -21,21 +21,25 @@ namespace DataAccessLayer.Repositories
                 _context = context;
             }
 
+
             public async Task AddAnswerAsync(Answer answer)
             {
                 _context.Answers.Add(answer);
                 await _context.SaveChangesAsync();
             }
 
+
             public async Task<List<Answer>> GetAllAnswersAsync()
             {
                 return await _context.Answers.ToListAsync();
             }
 
-            public async Task<Answer> GetAnswerByIdAsync(int id)
+
+            public async Task<Answer> GetAnswerByIdAsync(string id)
             {
                 return await _context.Answers.FindAsync(id);
             }
+
 
             public async Task UpdateAnswerAsync(Answer answer)
             {
@@ -43,7 +47,8 @@ namespace DataAccessLayer.Repositories
                 await _context.SaveChangesAsync();
             }
 
-            public async Task DeleteAnswerAsync(int id)
+
+            public async Task DeleteAnswerAsync(string id)
             {
                 var answer = await _context.Answers.FindAsync(id);
                 if (answer != null)
