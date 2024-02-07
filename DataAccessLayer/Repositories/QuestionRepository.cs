@@ -27,7 +27,7 @@ namespace DataAccessLayer.Repositories
 
         public async Task<List<Question>> GetAllQuestionsAsync()
         {
-            return await _context.Questions.ToListAsync();
+            return await _context.Questions.Include(q=>q.Answers).ToListAsync();
         }
 
         public async Task<Question> GetQuestionByIdAsync(string id)

@@ -4,6 +4,7 @@ using DataAccessLayer.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240207094355_AllowNullableInTeacher")]
+    partial class AllowNullableInTeacher
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,21 +185,21 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "ddaa473c-a36d-4661-b1cf-24f330d883de",
+                            ConcurrencyStamp = "b8d75c3c-da60-405f-ab4a-ccd0b3626068",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "714075a1-a70b-4266-a57d-0b8ff305a7ad",
+                            ConcurrencyStamp = "942bb7e6-8ae5-4daa-9b2e-5be716c7630d",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "e818b22a-500e-4133-9eeb-5981859cfe5e",
+                            ConcurrencyStamp = "223e7f4f-e520-454f-ab9b-5b51d5eb8bd6",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });

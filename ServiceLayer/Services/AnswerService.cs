@@ -81,7 +81,7 @@ namespace ServiceLayer.Services
                 Id = id,
                 QuestionId = answer.QuestionId,
                 TeacherId = answer.TeacherId,
-                Teacher = answer.Teacher,
+                Teacher = await _teacherRepository.GetTeacherByIdAsync(answer.TeacherId),
                 PostedDate = answer.PostedDate,
             };
 
@@ -109,5 +109,33 @@ namespace ServiceLayer.Services
         {
             await _answerRepository.DeleteAnswerAsync(id);
         }
+
+        public async Task<List<AnswerViewModel>> GetAllAnsweredByTeacherAsync()
+        {
+
+            var teacherId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (teacherId == null)
+            {
+
+                return new List<AnswerViewModel>();
+            }
+
+            var answer = await _answerRepository.GetAllAnswersAsync();
+
+
+            var answers = answer.Where(a=>a.TeacherId == teacherId)
+                                             .Select(q => new AnswerViewModel
+                                             {
+                                                 Id = q.Id,
+                                                 Title = q.Title,
+                                                 Description = q.Description,
+                                                 PostedDate = q.PostedDate
+                                             })
+                                             .ToList();
+
+            return answers;
+        }
+
     }
 }

@@ -1,0 +1,37 @@
+﻿@model List<GlobalEntity.ViewModels.AnswerViewModel>
+
+@if (Model == null || !Model.Any())
+{
+    <h1>No Answered Questions</h1>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            @foreach (var answer in Model)
+            {
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.Raw((@Truncate(answer.Title, 20)))</h5>
+                            <p class="card-text">@Html.Raw(Truncate(answer.Description, 100))</p>
+                            <p class="card-text"><small class="text-muted">Posted on: @answer.PostedDate.ToShortDateString()</small></p>
+                            <a asp-controller="Answer" asp-action="Details" asp-route-Id="@answer.Id" class="btn btn-primary read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@functions {
+    string Truncate(string input, int length)
+    {
+        if (input.Length <= length)
+        {
+            return input;
+        }
+        return input.Substring(0, length) + "...";
+    }
+}

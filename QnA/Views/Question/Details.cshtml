@@ -36,21 +36,36 @@
             </div>
         </div>
     </div>
-    <h1>Teachers Answers</h1>
-    @foreach (var answer in Model.Answers){
-        <div class="col-md-4 m-2">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">@Html.Raw((@Truncate(answer.Title, 10)))</h5>
-                    <p class="card-text">@Html.Raw(Truncate(answer.Description, 10))</p>
-                    <p class="card-text"><small class="text-muted">Posted on: @answer.PostedDate.ToShortDateString()</small></p>
-                    <a asp-controller="Answer" asp-action="Details" asp-route-Id="@answer.Id" class="btn btn-primary read-more">Read More</a>
-                </div>
-            </div>
-        </div>
-    }
+
 
 </div>
+@if(Model.Answers.Count == 0)
+{
+    <h3 class="m-2">No Answers</h3>
+}
+else{
+<h3 class="m-2">Teachers Answers</h3>
+<div class="container">
+    <div class="row">
+        
+        @foreach (var answer in Model.Answers)
+        {
+            <div class="col-md-8 mt-2">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        
+                        <h5 class="card-title">@Html.Raw((@Truncate(answer.Title, 20)))</h5>
+                        <p class="card-text">@Html.Raw(Truncate(answer.Description, 20))</p>
+                        <p class="card-text"><small class="text-muted">Posted on: @answer.PostedDate.ToShortDateString()</small></p>
+                        <a asp-controller="Answer" asp-action="Details" asp-route-Id="@answer.Id" class="btn btn-primary read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+        }
+    
+    </div>
+</div>
+}
 @functions {
     string Truncate(string input, int length)
     {

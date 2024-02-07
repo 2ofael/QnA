@@ -113,7 +113,38 @@ namespace ServiceLayer.Services
             await _questionRepository.DeleteQuestionAsync(id);
         }
 
+        public async Task<List<QuestionViewModel>> GetNotRepliedQuestionsAsync()
+        {
+            var questions = await _questionRepository.GetAllQuestionsAsync();
 
+           
+            var notRepliedQuestions = questions.Where(q => q.Answers == null || !q.Answers.Any())
+                                               .Select(q => new QuestionViewModel
+                                               {
+                                                   Id = q.Id,
+                                                   Title = q.Title,
+                                                   Description = q.Description,
+                                                   PostedDate = q.PostedDate
+                                               })
+                                               .ToList();
+            return notRepliedQuestions;
+        }
+
+        public async Task<List<QuestionViewModel>> GetRecentlyAskedByDateAsync()
+        {
+            var questions = await _questionRepository.GetAllQuestionsAsync();
+            var orderedQuestions = questions.OrderByDescending(q => q.PostedDate)
+                                            .Select(q => new QuestionViewModel
+                                            {
+                                                Id = q.Id,
+                                                Title = q.Title,
+                                                Description = q.Description,
+                                                PostedDate = q.PostedDate
+                                            })
+                                            .ToList();
+
+            return orderedQuestions;
+        }
 
 
 

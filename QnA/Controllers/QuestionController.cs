@@ -112,5 +112,19 @@ namespace QnA.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> NotRepliedQuestions()
+        {
+            var notRepliedQuestions = await _questionService.GetNotRepliedQuestionsAsync();
+            return View(notRepliedQuestions);
+        }
+
+
+        public async Task<IActionResult> RecentlyAskedByDate()
+        {
+            var questionsViewModel = await _questionService.GetRecentlyAskedByDateAsync();
+            return View(questionsViewModel);
+        }
     }
 }

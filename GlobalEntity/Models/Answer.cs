@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace GlobalEntity.Models
 
             public string TeacherId { get; set; }
 
+          
             public Teacher Teacher { get; set; }
 
             public string QuestionId { get; set; }

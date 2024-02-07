@@ -2,6 +2,7 @@
 using GlobalEntity.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
+using ServiceLayer.Services;
 
 namespace QnA.Controllers
 {
@@ -161,7 +162,12 @@ namespace QnA.Controllers
         }
 
 
-
+        [HttpGet]
+        public async Task<IActionResult> AllAnsweredByTeacher()
+        {
+            var answeres = await _answerService.GetAllAnsweredByTeacherAsync();
+            return View(answeres);
+        }
 
 
     }

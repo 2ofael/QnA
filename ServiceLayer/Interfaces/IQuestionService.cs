@@ -9,5 +9,8 @@ namespace ServiceLayer.Interfaces
         Task<List<QuestionViewModel>> GetAllQuestions();
         Task<QuestionViewModel> GetQuestionByIdAsync(string id);
         Task UpdateQuestionAsync(EditQuestionViewModel editQuestionViewModel);
+        Task<List<QuestionViewModel>> GetNotRepliedQuestionsAsync();
+
+        Task<List<QuestionViewModel>> GetRecentlyAskedByDateAsync();
     }
 }
