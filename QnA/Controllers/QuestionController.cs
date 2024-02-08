@@ -1,6 +1,8 @@
-﻿using GlobalEntity.ViewModels;
+﻿
+using GlobalEntity.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
+using ServiceLayer.Services;
 
 namespace QnA.Controllers
 {
@@ -113,18 +115,6 @@ namespace QnA.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> NotRepliedQuestions()
-        {
-            var notRepliedQuestions = await _questionService.GetNotRepliedQuestionsAsync();
-            return View(notRepliedQuestions);
-        }
-
-
-        public async Task<IActionResult> RecentlyAskedByDate()
-        {
-            var questionsViewModel = await _questionService.GetRecentlyAskedByDateAsync();
-            return View(questionsViewModel);
-        }
+      
     }
 }

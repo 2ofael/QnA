@@ -11,5 +11,6 @@ namespace ServiceLayer.Interfaces
         Task<AnswerViewModel> GetAnswerByIdAsync(string id);
         Task<EditAnswerViewModel> UpdateAnswerAsync(EditAnswerViewModel editAnswerViewModel);
         Task<List<AnswerViewModel>> GetAllAnsweredByTeacherAsync();
+        Task<List<AnswerViewModel>> GetAllAnswersForCurrentUserAsync();
     }
 }

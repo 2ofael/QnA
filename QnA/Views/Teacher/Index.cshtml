@@ -21,42 +21,44 @@
 
 
     <div class="container">
-        <h2 class="text-center mb-4">Student Portal</h2>
+        <h2 class="text-center mb-4">Teacher Dashboard</h2>
         <div class="row">
+
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Recent Questions</h5>
-                        <p class="card-text">View recently asked questions</p>
-                        <a href="@Url.Action("Recent", "Question")" class="btn btn-primary">View</a>
+                        <h5 class="card-title">Not Replied Questions</h5>
+                        <p class="card-text">Wainting For Answers</p>
+                        <a href="@Url.Action("NotRepliedQuestions", "Teacher")" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">All Questions</h5>
                         <p class="card-text">View all questions</p>
-                        <a href="@Url.Action("Index", "Question") class="btn btn-primary">View</a>
+                        <a href="@Url.Action("QuestionList", "Teacher")" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Your Answers</h5>
+                        <h5 class="card-title">Your All Answers</h5>
                         <p class="card-text">Answered by you</p>
-                        <a href="@Url.Action("Index", "Answer")" class="btn btn-primary">View</a>
+                        <a href="@Url.Action("AllAnsweredByTeacher", "Teacher")" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>
-        
+
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">All Answers</h5>
-                        <p class="card-text">View all answers</p>
-                        <a href="@Url.Action("Index", "Answer")" class="btn btn-primary">View</a>
+                        <h5 class="card-title">Recently Asked</h5>
+                        <p class="card-text">Recently Asked By Date</p>
+                        <a href="@Url.Action("RecentlyAskedByDate", "Teacher")" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>

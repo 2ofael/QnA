@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Interfaces;
+using DataAccessLayer.Repositories;
 using GlobalEntity.Models;
 using GlobalEntity.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -54,14 +55,15 @@ namespace ServiceLayer.Services
             var questionViewModels = new List<QuestionViewModel>();
             foreach (var question in questions)
             {
-                questionViewModels.Add(new QuestionViewModel { 
-                    Id = question.Id, 
+                questionViewModels.Add(new QuestionViewModel
+                {
+                    Id = question.Id,
                     Title = question.Title,
-                    Description = question.Description, 
+                    Description = question.Description,
                     StudentId = question.StudentId,
-                    PostedDate = DateTime.Now 
-                
-                
+                    PostedDate = DateTime.Now
+
+
                 });
             }
             return questionViewModels;
@@ -71,15 +73,16 @@ namespace ServiceLayer.Services
         public async Task<QuestionViewModel> GetQuestionByIdAsync(string id)
         {
             var question = await _questionRepository.GetQuestionByIdAsync(id);
-            var questionViewModel =  new QuestionViewModel 
-            {   Id = question.Id,
+            var questionViewModel = new QuestionViewModel
+            {
+                Id = question.Id,
                 Title = question.Title,
                 Description = question.Description,
                 StudentId = question.StudentId,
-                PostedDate = DateTime.Now, 
+                PostedDate = DateTime.Now,
                 Student = question.Student
             };
-            foreach(var ans in question.Answers)
+            foreach (var ans in question.Answers)
             {
                 questionViewModel.Answers.Add(new AnswerViewModel
                 {
@@ -88,7 +91,7 @@ namespace ServiceLayer.Services
                     Description = ans.Description,
 
                     PostedDate = DateTime.Now,
-                    
+
                 });
             }
             return questionViewModel;
@@ -117,7 +120,7 @@ namespace ServiceLayer.Services
         {
             var questions = await _questionRepository.GetAllQuestionsAsync();
 
-           
+
             var notRepliedQuestions = questions.Where(q => q.Answers == null || !q.Answers.Any())
                                                .Select(q => new QuestionViewModel
                                                {
@@ -146,7 +149,31 @@ namespace ServiceLayer.Services
             return orderedQuestions;
         }
 
+        public async Task<List<QuestionViewModel>> GetQuestionsByCurrStudentAsync()
+        {
+            var studentId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (studentId == null)
+            {
+
+                return new List<QuestionViewModel>();
+            }
+
+            var questions = await _questionRepository.GetAllQuestionsAsync();
 
 
+            var AskedByCurrStudentQuestions = questions.Where(a => a.StudentId == studentId)
+                                             .Select(q => new QuestionViewModel
+                                             {
+                                                 Id = q.Id,
+                                                 Title = q.Title,
+                                                 Description = q.Description,
+                                                 PostedDate = q.PostedDate
+                                             })
+                                             .ToList();
+
+            return AskedByCurrStudentQuestions;
+
+        }
     }
 }

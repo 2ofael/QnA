@@ -18,17 +18,20 @@ namespace ServiceLayer.Services
         private readonly IAnswerRepository _answerRepository;
         private readonly ITeacherRepository _teacherRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IQuestionRepository _questionRepository;
 
         public AnswerService(
             IAnswerRepository answerRepository, 
             ITeacherRepository teacherRepository,
             IHttpContextAccessor httpContextAccessor
-            )
+,
+            IQuestionRepository questionRepository)
 
         {
             _answerRepository = answerRepository;
             _teacherRepository = teacherRepository;
             _httpContextAccessor = httpContextAccessor;
+            _questionRepository = questionRepository;
         }
 
         public async Task AddAnswerAsync(CreateAnswerViewModel createAnswerViewModel)
@@ -136,6 +139,35 @@ namespace ServiceLayer.Services
 
             return answers;
         }
+
+
+        public async Task<List<AnswerViewModel>> GetAllAnswersForCurrentUserAsync()
+        {
+            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var questions = (await _questionRepository.GetAllQuestionsAsync()).Where(q=>q.StudentId == userId);
+          
+
+            var answerViewModels = questions.
+                SelectMany(q => q.Answers)
+                
+
+                .Select(a => new AnswerViewModel
+                {
+                    Id = a.Id,
+                    Title = a.Title,
+                    Description = a.Description,
+                    PostedDate = a.PostedDate,
+                    QuestionId = a.QuestionId
+                    
+                })
+                .ToList();
+
+            return answerViewModels;
+        }
+
+
+
 
     }
 }

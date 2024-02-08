@@ -12,5 +12,7 @@ namespace ServiceLayer.Interfaces
         Task<List<QuestionViewModel>> GetNotRepliedQuestionsAsync();
 
         Task<List<QuestionViewModel>> GetRecentlyAskedByDateAsync();
+
+        Task<List<QuestionViewModel>> GetQuestionsByCurrStudentAsync();
     }
 }

@@ -162,13 +162,7 @@ namespace QnA.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> AllAnsweredByTeacher()
-        {
-            var answeres = await _answerService.GetAllAnsweredByTeacherAsync();
-            return View(answeres);
-        }
-
+  
 
     }
 }
