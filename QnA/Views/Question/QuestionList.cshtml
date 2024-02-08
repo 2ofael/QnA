@@ -5,6 +5,12 @@
 <h1>No Questions</h1>
 }
 <div class="container">
+    @if (TempData.ContainsKey("SuccessMessage"))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
     <div class="row">
 
 

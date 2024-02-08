@@ -1,14 +1,15 @@
-﻿using GlobalEntity.ViewModels;
+﻿using GlobalEntity.Models;
+using GlobalEntity.ViewModels;
 
 namespace ServiceLayer.Interfaces
 {
     public interface IQuestionService
     {
-        Task AddQuestionAsync(CreateQuestionViewModel createQuestionViewModel);
+        Task<Question> AddQuestionAsync(CreateQuestionViewModel createQuestionViewModel);
         Task DeleteQuestionAsync(string id);
         Task<List<QuestionViewModel>> GetAllQuestions();
         Task<QuestionViewModel> GetQuestionByIdAsync(string id);
-        Task UpdateQuestionAsync(EditQuestionViewModel editQuestionViewModel);
+        Task<Question> UpdateQuestionAsync(EditQuestionViewModel editQuestionViewModel);
         Task<List<QuestionViewModel>> GetNotRepliedQuestionsAsync();
 
         Task<List<QuestionViewModel>> GetRecentlyAskedByDateAsync();

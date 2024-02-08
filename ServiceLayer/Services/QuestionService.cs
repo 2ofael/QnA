@@ -31,7 +31,7 @@ namespace ServiceLayer.Services
             _studentRepository = studentRepository;
         }
 
-        public async Task AddQuestionAsync(CreateQuestionViewModel createQuestionViewModel)
+        public async Task<Question> AddQuestionAsync(CreateQuestionViewModel createQuestionViewModel)
         {
             var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var student = await _studentRepository.GetStudentByUserIdAsync(userId);
@@ -47,6 +47,8 @@ namespace ServiceLayer.Services
             };
 
             await _questionRepository.AddQuestionAsync(question);
+
+            return question;
         }
 
         public async Task<List<QuestionViewModel>> GetAllQuestions()
@@ -98,7 +100,7 @@ namespace ServiceLayer.Services
 
         }
 
-        public async Task UpdateQuestionAsync(EditQuestionViewModel editQuestionViewModel)
+        public async Task<Question> UpdateQuestionAsync(EditQuestionViewModel editQuestionViewModel)
         {
             var question = await _questionRepository.GetQuestionByIdAsync(editQuestionViewModel.Id);
             if (question != null)
@@ -109,6 +111,7 @@ namespace ServiceLayer.Services
 
                 await _questionRepository.UpdateQuestionAsync(question);
             }
+            return question;
         }
 
         public async Task DeleteQuestionAsync(string id)

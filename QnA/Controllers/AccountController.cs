@@ -38,6 +38,8 @@ namespace QnA.Controllers
             {
                 ModelState.AddModelError("", error.Description);
             }
+            TempData["SuccessMessage"] = "Registration successful!";
+     
             return View(model);
         }
 
@@ -61,6 +63,8 @@ namespace QnA.Controllers
             {
                 ModelState.AddModelError("", error.Description);
             }
+            TempData["SuccessMessage"] = "Registration successful!";
+     
             return View(model);
         }
 

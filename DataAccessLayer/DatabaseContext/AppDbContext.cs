@@ -42,7 +42,7 @@ namespace DataAccessLayer.DatabaseContext
                 .HasMany(s => s.Questions)
                 .WithOne(q => q.Student)
                 .HasForeignKey(q => q.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
 
 
@@ -50,7 +50,7 @@ namespace DataAccessLayer.DatabaseContext
                 .HasMany<Answer>(q => q.Answers)
                 .WithOne(a => a.Question)
                 .HasForeignKey(a => a.QuestionId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
 
 

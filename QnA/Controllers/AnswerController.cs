@@ -59,13 +59,16 @@ namespace QnA.Controllers
             if (ModelState.IsValid)
             {
                 await _answerService.AddAnswerAsync(createAnswerViewModel);
+                TempData["SuccessMessage"] = "Answer created successfully!";
+                return RedirectToAction("Details", "Question", new { id = createAnswerViewModel.QuestionId });
                 return RedirectToAction(nameof(Index));
             }
             return View(createAnswerViewModel);
         }
 
- 
-        public async Task<IActionResult> Edit(string id)
+
+        [HttpPost]
+        public async Task<IActionResult> EditAnswer(string id)
         {
             if (id == null)
             {
@@ -92,6 +95,7 @@ namespace QnA.Controllers
                 try
                 {
                     await _answerService.UpdateAnswerAsync(editAnswerViewModel);
+                    TempData["SuccessMessage"] = "Answer Edited successfully!";
                 }
                 catch (Exception)
                 {
@@ -104,27 +108,13 @@ namespace QnA.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new {id = editAnswerViewModel.Id});
             }
             return View();
         }
 
 
-        //public async Task<IActionResult> Delete(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    Answer answer = await _answerService.GetAnswerByIdAsync(id);
-        //    if (answer == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(answer);
-        //}
+       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -142,18 +132,13 @@ namespace QnA.Controllers
             }
 
             await _answerService.DeleteAnswerAsync(id);
-            return RedirectToAction(nameof(Index));
+            TempData["SuccessMessage"] = "Answer Deleted successfully!";
+            return RedirectToAction("Details", "Question", new {id = answer.QuestionId});
         }
 
 
 
-        //    [HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(string id)
-        //{
-        //    await _answerService.DeleteAnswerAsync(id);
-        //    return RedirectToAction(nameof(Index));
-        //}
+   
 
         private bool AnswerExists(string id)
         {

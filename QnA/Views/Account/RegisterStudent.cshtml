@@ -5,6 +5,12 @@
 }
 
 <div class="container">
+    @if (TempData.ContainsKey("SuccessMessage"))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
     <h2 class="text-center mb-4">Student Registration</h2>
     <form asp-action="RegisterStudent" method="post" class="needs-validation" novalidate>
         <div class="form-floating mb-3">

@@ -53,8 +53,9 @@ namespace QnA.Controllers
 
             try
             {
-                await _questionService.AddQuestionAsync(createQuestionViewModel);
-                return RedirectToAction(nameof(Index));
+                var question = await _questionService.AddQuestionAsync(createQuestionViewModel);
+                TempData["SuccessMessage"] = "Question created successfully!";
+                return RedirectToAction(nameof(Details),new {id = question.Id});
             }
             catch (Exception ex)
             {
@@ -62,8 +63,13 @@ namespace QnA.Controllers
                 return View(createQuestionViewModel);
             }
         }
-        [HttpGet]
-        public async Task<IActionResult> Edit(string id)
+
+
+      
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditQuestion(string id)
         {
             var question = await _questionService.GetQuestionByIdAsync(id);
             if (question == null)
@@ -89,8 +95,9 @@ namespace QnA.Controllers
 
             try
             {
-                await _questionService.UpdateQuestionAsync(editQuestionViewModel);
-                return RedirectToAction(nameof(Index));
+                var question = await _questionService.UpdateQuestionAsync(editQuestionViewModel);
+                TempData["SuccessMessage"] = "Question Edited successfully!";
+                return RedirectToAction(nameof(Details), new {id = question.Id});
             }
             catch (Exception ex)
             {
@@ -106,12 +113,13 @@ namespace QnA.Controllers
             try
             {
                 await _questionService.DeleteQuestionAsync(id);
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Question Deleted successfully!";
+                return RedirectToAction(nameof(QuestionList));
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Unable to delete question. Please try again.");
-                return RedirectToAction(nameof(Index));
+                return View("Error");
             }
         }
 
