@@ -7,7 +7,7 @@ using ServiceLayer.Services;
 
 namespace QnA.Controllers
 {
-    [Authorize(Roles = "Student")]
+    [Authorize(Roles = "Teacher, Student")]
     public class AnswerController : Controller
     {
         private readonly IAnswerService _answerService;
@@ -17,15 +17,15 @@ namespace QnA.Controllers
         {
             _answerService = answerService;
         }
-   
 
+        [AllowAnonymous]
         public async Task<IActionResult> AnswerList()
         {
             List<AnswerViewModel> answersViewModel = await _answerService.GetAllAnswersAsync();
             return View(answersViewModel);
         }
 
-  
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -42,14 +42,16 @@ namespace QnA.Controllers
             return View(answerViewModel);
         }
 
-    
+
+        [Authorize(Roles ="Student")]
         public IActionResult Create(string  questionId)
         {    
             
             return View(new CreateAnswerViewModel { QuestionId = questionId});
         }
 
-       
+
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateAnswerViewModel createAnswerViewModel)
@@ -64,7 +66,7 @@ namespace QnA.Controllers
             return View(createAnswerViewModel);
         }
 
-        [Authorize(Roles = "Moderator")]
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAnswer(string id)
@@ -82,8 +84,8 @@ namespace QnA.Controllers
             return View(answer);
         }
 
-        [Authorize(Roles = "Moderator")]
 
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit( EditAnswerViewModel editAnswerViewModel)
@@ -115,7 +117,7 @@ namespace QnA.Controllers
 
 
 
-        [Authorize(Roles = "Moderator")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)

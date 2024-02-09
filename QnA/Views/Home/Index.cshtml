@@ -2,44 +2,40 @@
     ViewData["Title"] = "Q&A Platform";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-   
-</head>
+
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Welcome to the Q&A Platform</h1>
-        <div class="row mt-5">
-            <div class="col-md-6">
+        <div class="row mt-5 flex-row">
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Teacher</h5>
-                        <p class="card-text">As a teacher, you can post questions, answer questions, and engage with students.</p>
-                        <a href="#" class="btn btn-primary">Register as Teacher</a>
+                        <h5 class="card-title">Registration</h5>
+                        <p class="card-text">Sign up as a teacher For Answering or a student to ask  questions.</p>
+                
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <a asp-action="Register" asp-controller="Account" class="btn btn-primary btn-block">Register</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Student</h5>
-                        <p class="card-text">As a student, you can ask questions, receive answers, and learn from your peers and teachers.</p>
-                        <a href="#" class="btn btn-primary">Register as Student</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Login</h5>
-                        <p class="card-text">Already registered? Login here to access the platform.</p>
-                        <a href="#" class="btn btn-primary">Login</a>
+                        <p class="card-text">Already registered? Log in here to access the platform.</p>
+                        <a asp-action="Login" asp-controller="Account" class="btn btn-primary btn-block">Login</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Questions</h5>
+                        <p class="card-text">Explore questions posted  students and answered by teacher.</p>
+                        <a asp-action="QuestionList" asp-controller="Question" class="btn btn-primary btn-block">Browse Questions</a>
                     </div>
                 </div>
             </div>
@@ -48,4 +44,4 @@
 
    
 </body>
-</html>
+

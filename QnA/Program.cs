@@ -6,6 +6,7 @@ using GlobalEntity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using QnA.Seed_Data;
 using ServiceLayer.Interfaces;
 using ServiceLayer.Services;
 
@@ -27,6 +28,16 @@ builder.Services.AddScoped<IAnswerRepository,AnswerRepository>();
 builder.Services.AddScoped<IAnswerService, AnswerService>();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("StudentOnly", policy =>
+    {
+        policy.RequireRole("Student");
+    });
+});
+
+
+
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -34,9 +45,44 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+
+
+
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+using (var serviceScope = app.Services.CreateScope())
+{
+    var dbContext = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+
+    dbContext.Database.Migrate();
+
+
+    if (!await roleManager.RoleExistsAsync("Moderator"))
+    {
+        await roleManager.CreateAsync(new IdentityRole("Moderator"));
+    }
+
+
+    var user = await userManager.FindByEmailAsync("moderator@example.com");
+    if (user == null)
+    {
+        user = new ApplicationUser
+        {
+            Name = "Moderator",
+            UserName = "moderator@example.com",
+            Email = "moderator@example.com",
+
+        };
+        await userManager.CreateAsync(user, "hexhexhex9H!"); 
+        await userManager.AddToRoleAsync(user, "Moderator"); 
+    }
+}
+
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

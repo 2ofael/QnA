@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
+using GlobalEntity.HelperClasses;
 using GlobalEntity.Models;
 using GlobalEntity.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -70,6 +71,28 @@ namespace ServiceLayer.Services
             }
             return questionViewModels;
         }
+
+        public async Task<Pagination<QuestionViewModel>> GetAllQuestions(int pageNumber, int pageSize)
+        {
+            var questions = await _questionRepository.GetAllQuestionsAsync();
+
+            var totalItems = questions.Count;
+            var pagedQuestions = questions.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+            var questionViewModels = pagedQuestions.Select(question => new QuestionViewModel
+            {
+                Id = question.Id,
+                Title = question.Title,
+                Description = question.Description,
+                StudentId = question.StudentId,
+                PostedDate = question.PostedDate
+            }).ToList();
+
+            return new Pagination<QuestionViewModel>(questionViewModels, pageNumber, pageSize, totalItems);
+        }
+
+
+
 
 
         public async Task<QuestionViewModel> GetQuestionByIdAsync(string id)

@@ -20,19 +20,25 @@
                 <div class="card-body">
                     <h5 class="card-title">@Html.Raw(Model.Title)</h5>
                     <p class="card-text">@Html.Raw(Model.Description)</p>
-                    <p class="card-text"><small class="text-muted">Posted by: @Model.Student.UserName</small></p>
+                    <p class="card-text"><small class="text-muted">Author: @Model.Student.Name</small></p>
+                    <p class="card-text"><small class="text-muted">Email: @Model.Student.Email</small></p>
                     <p class="card-text"><small class="text-muted">Id Card: @Model.Student.IdCardNumber</small></p>
                     <p class="card-text"><small class="text-muted">Posted on: @Model.PostedDate.ToShortDateString()</small></p>
                 </div>
                 <div class="card-footer">
                     <h5>Actions</h5>
-                    @if (User.Identity.IsAuthenticated && (User.IsInRole("Moderator") || (Model.StudentId == User.FindFirst(ClaimTypes.NameIdentifier).Value)))
+                    @if (User.Identity.IsAuthenticated && (Model.StudentId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
                     {
                         <form asp-action="EditQuestion" asp-controller="Question" method="post" class="d-inline">
                             <input type="hidden" name="id" value="@Model.Id" />
                             <button type="submit" class="btn btn-secondary">Edit</button>
-                        </form>
 
+                        </form>
+                    }
+
+                    @if (User.Identity.IsAuthenticated && (User.IsInRole("Moderator") || (Model.StudentId == User.FindFirst(ClaimTypes.NameIdentifier).Value)))
+                    {
+                       
                         <form asp-action="Delete" asp-controller="Question" method="post" class="d-inline">
                             <input type="hidden" name="id" value="@Model.Id" />
                             <button type="submit" class="btn btn-danger">Delete</button>

@@ -7,7 +7,7 @@ using ServiceLayer.Services;
 
 namespace QnA.Controllers
 {
-    [Authorize(Roles="Student")]
+    [Authorize(Roles="Student, Moderator")]
     public class QuestionController : Controller
     {
         private readonly IQuestionService _questionService;
@@ -17,14 +17,16 @@ namespace QnA.Controllers
             _questionService = questionService;
         }
 
-  
 
-        public async Task<IActionResult> QuestionList()
+        [AllowAnonymous]
+        public async Task<IActionResult> QuestionList(int pageNumber = 1, int pageSize = 10)
         {
-            var questions = await _questionService.GetAllQuestions();
-            return View(questions);
+            var paginationModel = await _questionService.GetAllQuestions(pageNumber, pageSize);
+            return View(paginationModel);
         }
 
+
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             var question = await _questionService.GetQuestionByIdAsync(id);
@@ -35,11 +37,15 @@ namespace QnA.Controllers
             return View(question);
         }
 
+
+        [Authorize(Roles = "Student")]
         public IActionResult Create()
         {
             return View();
         }
 
+
+        [Authorize(Roles = "Student")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateQuestionViewModel createQuestionViewModel)
@@ -64,7 +70,7 @@ namespace QnA.Controllers
 
 
 
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = "Student")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditQuestion(string id)
@@ -77,7 +83,7 @@ namespace QnA.Controllers
             return View(question);
         }
 
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = "Student")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, EditQuestionViewModel editQuestionViewModel)
@@ -105,7 +111,7 @@ namespace QnA.Controllers
             }
         }
 
-        [Authorize(Roles = "Moderator")]
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)

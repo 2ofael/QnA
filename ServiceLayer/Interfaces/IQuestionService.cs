@@ -1,4 +1,5 @@
-﻿using GlobalEntity.Models;
+﻿using GlobalEntity.HelperClasses;
+using GlobalEntity.Models;
 using GlobalEntity.ViewModels;
 
 namespace ServiceLayer.Interfaces
@@ -15,5 +16,7 @@ namespace ServiceLayer.Interfaces
         Task<List<QuestionViewModel>> GetRecentlyAskedByDateAsync();
 
         Task<List<QuestionViewModel>> GetQuestionsByCurrStudentAsync();
+
+        Task<Pagination<QuestionViewModel>> GetAllQuestions(int pageNumber, int pageSize);
     }
 }

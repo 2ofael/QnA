@@ -1,12 +1,9 @@
-﻿@model List<GlobalEntity.ViewModels.QuestionViewModel>
-@{
-    ViewData["Title"] = "All Questions";
-}
+﻿@using GlobalEntity.HelperClasses
+@model Pagination<GlobalEntity.ViewModels.QuestionViewModel>
 
-
-@if(Model.Count == 0)
+@if (Model.TotalItems == 0)
 {
-<h1>No Questions</h1>
+    <h1>No Questions</h1>
 }
 <div class="container">
     @if (TempData.ContainsKey("SuccessMessage"))
@@ -16,9 +13,7 @@
         </div>
     }
     <div class="row">
-
-
-        @foreach (var question in Model)
+        @foreach (var question in Model.GetItemsForCurrentPage())
         {
             <div class="col-md-6">
                 <div class="card mb-3">
@@ -26,10 +21,25 @@
                         <h5 class="card-title">@Html.Raw((@Truncate(question.Title, 20)))</h5>
                         <p class="card-text">@Html.Raw(Truncate(question.Description, 100))</p>
                         <p class="card-text"><small class="text-muted">Posted on: @question.PostedDate.ToShortDateString()</small></p>
-                          <a asp-controller="Question" asp-action="Details" asp-route-Id="@question.Id" class="btn btn-primary read-more" >Read More</a>
+                        <a asp-controller="Question" asp-action="Details" asp-route-Id="@question.Id" class="btn btn-primary read-more">Read More</a>
                     </div>
                 </div>
             </div>
+        }
+    </div>
+    
+    <div class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+            <a asp-action="QuestionList" asp-route-pageNumber="@Model.PreviousPageNumber" asp-route-pageSize="@Model.PageSize">Previous</a>
+        }
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <a asp-action="QuestionList" asp-route-pageNumber="@i" asp-route-pageSize="@Model.PageSize">@i</a>
+        }
+        @if (Model.HasNextPage)
+        {
+            <a asp-action="QuestionList" asp-route-pageNumber="@Model.NextPageNumber" asp-route-pageSize="@Model.PageSize">Next</a>
         }
     </div>
 </div>

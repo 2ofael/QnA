@@ -23,7 +23,7 @@ namespace ServiceLayer.Services
 
         public async Task<IdentityResult> RegisterAsTeacherAsync(TeacherRegistrationViewModel model)
         {
-            var user = new Teacher { UserName = model.Email, Email = model.Email };
+            var user = new Teacher {Name = model.Name, UserName = model.Email, Email = model.Email };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
@@ -35,7 +35,7 @@ namespace ServiceLayer.Services
 
         public async Task<IdentityResult> RegisterAsStudentAsync(StudentRegistrationViewModel model)
         {
-            var user = new Student { UserName = model.Email, Email = model.Email, IdCardNumber = model.IdCardNumber, InstituteName = model.InstituteName };
+            var user = new Student {Name = model.Name, UserName = model.Email, Email = model.Email, IdCardNumber = model.IdCardNumber, InstituteName = model.InstituteName };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
