@@ -1,11 +1,13 @@
 ﻿using GlobalEntity.Models;
 using GlobalEntity.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 using ServiceLayer.Services;
 
 namespace QnA.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     public class TeacherController : Controller
     {
         private readonly IQuestionService _questionService;

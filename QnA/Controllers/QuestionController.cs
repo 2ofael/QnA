@@ -1,11 +1,13 @@
 ﻿
 using GlobalEntity.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 using ServiceLayer.Services;
 
 namespace QnA.Controllers
 {
+    [Authorize(Roles="Student")]
     public class QuestionController : Controller
     {
         private readonly IQuestionService _questionService;
@@ -15,11 +17,7 @@ namespace QnA.Controllers
             _questionService = questionService;
         }
 
-        public IActionResult Index()
-        {
-     
-            return View();
-        }
+  
 
         public async Task<IActionResult> QuestionList()
         {
@@ -65,8 +63,8 @@ namespace QnA.Controllers
         }
 
 
-      
 
+        [Authorize(Roles = "Moderator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditQuestion(string id)
@@ -79,6 +77,7 @@ namespace QnA.Controllers
             return View(question);
         }
 
+        [Authorize(Roles = "Moderator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, EditQuestionViewModel editQuestionViewModel)
@@ -106,6 +105,7 @@ namespace QnA.Controllers
             }
         }
 
+        [Authorize(Roles = "Moderator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)

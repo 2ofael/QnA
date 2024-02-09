@@ -1,25 +1,23 @@
 ﻿using GlobalEntity.Models;
 using GlobalEntity.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 using ServiceLayer.Services;
 
 namespace QnA.Controllers
 {
+    [Authorize(Roles = "Student")]
     public class AnswerController : Controller
     {
         private readonly IAnswerService _answerService;
 
+      
         public AnswerController(IAnswerService answerService)
         {
             _answerService = answerService;
         }
-        public IActionResult Index()
-        {
-
-            return View();
-        }
-
+   
 
         public async Task<IActionResult> AnswerList()
         {
@@ -61,13 +59,14 @@ namespace QnA.Controllers
                 await _answerService.AddAnswerAsync(createAnswerViewModel);
                 TempData["SuccessMessage"] = "Answer created successfully!";
                 return RedirectToAction("Details", "Question", new { id = createAnswerViewModel.QuestionId });
-                return RedirectToAction(nameof(Index));
+               
             }
             return View(createAnswerViewModel);
         }
 
-
+        [Authorize(Roles = "Moderator")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAnswer(string id)
         {
             if (id == null)
@@ -83,7 +82,8 @@ namespace QnA.Controllers
             return View(answer);
         }
 
-       
+        [Authorize(Roles = "Moderator")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit( EditAnswerViewModel editAnswerViewModel)
@@ -114,8 +114,8 @@ namespace QnA.Controllers
         }
 
 
-       
 
+        [Authorize(Roles = "Moderator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)

@@ -1,6 +1,12 @@
 ﻿@using System.Security.Claims
 @using GlobalEntity.Models
 @model GlobalEntity.ViewModels.AnswerViewModel
+@{
+    ViewData["Title"] = "Answer Details";
+}
+
+
+
 <div class="container mx-5">
     @if (TempData.ContainsKey("SuccessMessage"))
     {

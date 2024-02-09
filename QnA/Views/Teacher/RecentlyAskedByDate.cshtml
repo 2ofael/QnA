@@ -2,11 +2,12 @@
 
 @if (Model == null || !Model.Any())
 {
-    <h1>No Questions Asked </h1>
+    <h3>No Questions Asked </h3>
 }
 else
 {
     <div class="container">
+        <h3>Recently Asked</h3>
         <div class="row">
             @foreach (var question in Model)
             {

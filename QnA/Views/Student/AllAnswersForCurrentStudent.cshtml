@@ -1,4 +1,7 @@
 ﻿@model List<GlobalEntity.ViewModels.AnswerViewModel>
+@{
+    ViewData["Title"] = "All Answer For You";
+}
 
 @if (Model == null || !Model.Any())
 {
@@ -6,7 +9,7 @@
 }
 else
 {
-    <h1 class="m-2">Answers For You</h1>
+    <h3 class="m-2">Answers For You</h3>
     <div class="container">
         <div class="row">
             @foreach (var answer in Model)

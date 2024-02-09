@@ -2,6 +2,11 @@
 @using GlobalEntity.Models
 @model GlobalEntity.ViewModels.QuestionViewModel
 
+@{
+    ViewData["Title"] = "Details Question";
+}
+
+
 <div class="container mx-5">
     @if (TempData.ContainsKey("SuccessMessage"))
     {
@@ -33,7 +38,10 @@
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     }
-                    <a asp-controller="Answer" asp-action="Create" asp-route-questionId="@Model.Id" class="btn btn-primary">Reply</a>
+                    @if (User.Identity.IsAuthenticated && (User.IsInRole("Teacher") || (Model.StudentId == User.FindFirst(ClaimTypes.NameIdentifier).Value)))
+                    {
+                        <a asp-controller="Answer" asp-action="Create" asp-route-questionId="@Model.Id" class="btn btn-primary">Reply</a>
+                    }
                 </div>
             </div>
         </div>
