@@ -43,7 +43,7 @@ namespace QnA.Controllers
         }
 
 
-        [Authorize(Roles ="Student")]
+        
         public IActionResult Create(string  questionId)
         {    
             
