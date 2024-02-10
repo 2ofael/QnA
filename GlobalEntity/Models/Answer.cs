@@ -11,9 +11,7 @@ namespace GlobalEntity.Models
     public   class Answer
     {
 
-       
 
-    
 
             public string Id { get; set; }
 

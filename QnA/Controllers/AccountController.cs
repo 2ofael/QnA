@@ -32,13 +32,17 @@ namespace PresentationLayer.Controllers
 
             var result = await _accountService.RegisterAsTeacherAsync(model);
             if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Registration successful!";
                 return RedirectToAction("Login");
+
+            }
 
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
             }
-            TempData["SuccessMessage"] = "Registration successful!";
+            
 
             return View(model);
         }
@@ -53,17 +57,23 @@ namespace PresentationLayer.Controllers
         public async Task<IActionResult> RegisterStudent(StudentRegistrationViewModel model)
         {
             if (!ModelState.IsValid)
+            {
+               
                 return View(model);
+            }
 
             var result = await _accountService.RegisterAsStudentAsync(model);
             if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Registration successful!";
                 return RedirectToAction("Login");
+            }
 
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
             }
-            TempData["SuccessMessage"] = "Registration successful!";
+          
 
             return View(model);
         }

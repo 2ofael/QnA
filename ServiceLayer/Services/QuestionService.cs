@@ -135,7 +135,7 @@ namespace ServiceLayer.Services
             {
                 question.Title = editQuestionViewModel.Title;
                 question.Description = editQuestionViewModel.Description;
-                //  question.StudentId = questionViewModel.StudentId;
+              
 
                 await _questionRepository.UpdateQuestionAsync(question);
             }

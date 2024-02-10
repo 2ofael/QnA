@@ -3,16 +3,18 @@
 }
 
 
-<body>
-    <div class="container mt-5">
-        <h1 class="text-center">Welcome Student-Teacher Q&A Platform</h1>
+
+   <div class="container mt-5">
+        <h1 class="text-center">Welcome to Student-Teacher Q&A Platform</h1>
+    @if (!User.Identity.IsAuthenticated)
+    {
         <div class="row mt-5 flex-row">
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Registration</h5>
                         <p class="card-text">Sign up as a teacher For Answering or a student to ask  questions.</p>
-                
+
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <a asp-action="Register" asp-controller="Account" class="btn btn-primary btn-block">Register</a>
@@ -40,8 +42,9 @@
                 </div>
             </div>
         </div>
-    </div>
+        }
+   </div>
+    
 
-   
-</body>
+
 

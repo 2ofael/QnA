@@ -27,7 +27,7 @@ namespace DataAccessLayer.Repositories
         public async Task<Student> GetStudentByUserIdAsync(string userId)
         {
            
-            return await _context.Students.FirstOrDefaultAsync(s => s.Id == userId); //Where(s => s.Id == userId).SingleOrDefaultAsync();
+            return await _context.Students.FirstOrDefaultAsync(s => s.Id == userId); 
         }
 
 

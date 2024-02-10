@@ -10,9 +10,12 @@
 <div class="container mx-5">
     @if (TempData.ContainsKey("SuccessMessage"))
     {
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             @TempData["SuccessMessage"]
+          
         </div>
+
+
     }
     <div class="row">
         <div class="col-md-12">
@@ -26,7 +29,7 @@
                     <p class="card-text"><small class="text-muted">Posted on: @Model.PostedDate.ToShortDateString()</small></p>
                 </div>
                 <div class="card-footer">
-                    <h5>Actions</h5>
+                   
                     @if (User.Identity.IsAuthenticated && (Model.StudentId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
                     {
                         <form asp-action="EditQuestion" asp-controller="Question" method="post" class="d-inline">

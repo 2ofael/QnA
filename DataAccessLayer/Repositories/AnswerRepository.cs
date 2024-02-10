@@ -37,9 +37,7 @@ namespace DataAccessLayer.Repositories
 
             public async Task<Answer> GetAnswerByIdAsync(string id)
             {
-            //  var answers = _context.Answers.Include(a=>a.Teacher).Where(a => a.Id == id).FirstOrDefault();
-
-            // return answers;
+           
      
             return await _context.Answers.FirstOrDefaultAsync(a=>a.Id == id);
             }

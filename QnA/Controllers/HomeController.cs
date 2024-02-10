@@ -12,7 +12,7 @@ namespace PresentationLayer.Controllers
         private readonly ILogger<HomeController> _logger;
 
 
-        public HomeController(ILogger<HomeController> logger, AppDbContext appDbContext)
+        public HomeController(ILogger<HomeController> logger)
         {
 
             _logger = logger;
@@ -21,6 +21,7 @@ namespace PresentationLayer.Controllers
 
         public IActionResult Index()
         {
+           
 
             return View();
         }
