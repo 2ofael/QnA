@@ -1,4 +1,4 @@
-﻿namespace QnA.HelperClasses
+﻿namespace PresentationLayer.HelperClasses
 {
     public class Pagination<T>
     {

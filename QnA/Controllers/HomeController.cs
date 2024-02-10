@@ -1,22 +1,22 @@
 ﻿using DataAccessLayer.DatabaseContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using QnA.Models;
+
 
 using System.Diagnostics;
 
-namespace QnA.Controllers
+namespace PresentationLayer.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-     
+
 
         public HomeController(ILogger<HomeController> logger, AppDbContext appDbContext)
         {
-       
+
             _logger = logger;
-           
+
         }
 
         public IActionResult Index()
@@ -26,6 +26,6 @@ namespace QnA.Controllers
         }
 
 
-       
+
     }
 }

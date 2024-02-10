@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 using ServiceLayer.Services;
 
-namespace QnA.Controllers
+namespace PresentationLayer.Controllers
 {
     [Authorize(Roles = "Teacher")]
     public class TeacherController : Controller
@@ -14,8 +14,9 @@ namespace QnA.Controllers
 
         private readonly IAnswerService _answerService;
 
-        public TeacherController(IQuestionService questionService, IAnswerService answerService) {
-            
+        public TeacherController(IQuestionService questionService, IAnswerService answerService)
+        {
+
             _questionService = questionService;
             _answerService = answerService;
 
@@ -51,12 +52,12 @@ namespace QnA.Controllers
             return View(questionsViewModel);
         }
 
-      
-
-      
 
 
 
-      
+
+
+
+
     }
 }

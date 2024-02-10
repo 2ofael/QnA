@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 
-namespace QnA.Controllers
+namespace PresentationLayer.Controllers
 {
     public class AccountController : Controller
     {
@@ -39,7 +39,7 @@ namespace QnA.Controllers
                 ModelState.AddModelError("", error.Description);
             }
             TempData["SuccessMessage"] = "Registration successful!";
-     
+
             return View(model);
         }
 
@@ -64,7 +64,7 @@ namespace QnA.Controllers
                 ModelState.AddModelError("", error.Description);
             }
             TempData["SuccessMessage"] = "Registration successful!";
-     
+
             return View(model);
         }
 

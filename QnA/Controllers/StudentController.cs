@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 using ServiceLayer.Services;
 
-namespace QnA.Controllers
+namespace PresentationLayer.Controllers
 {
     [Authorize(Roles = "Student")]
     public class StudentController : Controller

@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 using ServiceLayer.Services;
 
-namespace QnA.Controllers
+namespace PresentationLayer.Controllers
 {
-    [Authorize(Roles="Student, Moderator")]
+    [Authorize(Roles = "Student, Moderator")]
     public class QuestionController : Controller
     {
         private readonly IQuestionService _questionService;
@@ -59,7 +59,7 @@ namespace QnA.Controllers
             {
                 var question = await _questionService.AddQuestionAsync(createQuestionViewModel);
                 TempData["SuccessMessage"] = "Question created successfully!";
-                return RedirectToAction(nameof(Details),new {id = question.Id});
+                return RedirectToAction(nameof(Details), new { id = question.Id });
             }
             catch (Exception ex)
             {
@@ -102,7 +102,7 @@ namespace QnA.Controllers
             {
                 var question = await _questionService.UpdateQuestionAsync(editQuestionViewModel);
                 TempData["SuccessMessage"] = "Question Edited successfully!";
-                return RedirectToAction(nameof(Details), new {id = question.Id});
+                return RedirectToAction(nameof(Details), new { id = question.Id });
             }
             catch (Exception ex)
             {
@@ -111,7 +111,7 @@ namespace QnA.Controllers
             }
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
@@ -129,6 +129,6 @@ namespace QnA.Controllers
             }
         }
 
-      
+
     }
 }

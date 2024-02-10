@@ -5,14 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 using ServiceLayer.Services;
 
-namespace QnA.Controllers
+namespace PresentationLayer.Controllers
 {
     [Authorize(Roles = "Teacher, Student")]
     public class AnswerController : Controller
     {
         private readonly IAnswerService _answerService;
 
-      
+
         public AnswerController(IAnswerService answerService)
         {
             _answerService = answerService;
@@ -43,15 +43,15 @@ namespace QnA.Controllers
         }
 
 
-        
-        public IActionResult Create(string  questionId)
-        {    
-            
-            return View(new CreateAnswerViewModel { QuestionId = questionId});
+
+        public IActionResult Create(string questionId)
+        {
+
+            return View(new CreateAnswerViewModel { QuestionId = questionId });
         }
 
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateAnswerViewModel createAnswerViewModel)
@@ -61,12 +61,12 @@ namespace QnA.Controllers
                 await _answerService.AddAnswerAsync(createAnswerViewModel);
                 TempData["SuccessMessage"] = "Answer created successfully!";
                 return RedirectToAction("Details", "Question", new { id = createAnswerViewModel.QuestionId });
-               
+
             }
             return View(createAnswerViewModel);
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAnswer(string id)
@@ -85,12 +85,12 @@ namespace QnA.Controllers
         }
 
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit( EditAnswerViewModel editAnswerViewModel)
+        public async Task<IActionResult> Edit(EditAnswerViewModel editAnswerViewModel)
         {
-           
+
 
             if (ModelState.IsValid)
             {
@@ -110,7 +110,7 @@ namespace QnA.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Details", new {id = editAnswerViewModel.Id});
+                return RedirectToAction("Details", new { id = editAnswerViewModel.Id });
             }
             return View();
         }
@@ -135,21 +135,21 @@ namespace QnA.Controllers
 
             await _answerService.DeleteAnswerAsync(id);
             TempData["SuccessMessage"] = "Answer Deleted successfully!";
-            return RedirectToAction("Details", "Question", new {id = answer.QuestionId});
+            return RedirectToAction("Details", "Question", new { id = answer.QuestionId });
         }
 
 
 
-   
+
 
         private bool AnswerExists(string id)
         {
-            
+
             return !string.IsNullOrEmpty(id);
         }
 
 
-  
+
 
     }
 }
