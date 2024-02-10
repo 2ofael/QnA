@@ -98,6 +98,11 @@ namespace ServiceLayer.Services
         public async Task<QuestionViewModel> GetQuestionByIdAsync(string id)
         {
             var question = await _questionRepository.GetQuestionByIdAsync(id);
+            if(question == null)
+            {
+                return null;
+            }
+
             var questionViewModel = new QuestionViewModel
             {
                 Id = question.Id,

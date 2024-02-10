@@ -75,7 +75,13 @@ namespace ServiceLayer.Services
 
         public async Task<AnswerViewModel> GetAnswerByIdAsync(string id)
         {
-            Answer answer = await _answerRepository.GetAnswerByIdAsync(id); 
+            Answer answer = await _answerRepository.GetAnswerByIdAsync(id);
+
+            if (answer == null)
+            {
+                return null;
+            }
+
 
             AnswerViewModel answerViewModel =  new AnswerViewModel
             {
